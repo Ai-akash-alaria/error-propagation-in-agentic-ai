@@ -1,45 +1,41 @@
-# Human-AI Collaboration & Manual Verification Audit Log
+# Human-AI Collaboration & Verification Log (`ai_assistance_log.md`)
 
-As required by the lab workflow, LLM prompts were used as an assistive tool to structure the initial workspace and draft candidate gap formulations, followed by personal critical review, manual cross-checking, and correction.
+- **Student Name:** Akash Alaria (`MHM2026015`)
+- **Project:** Error Propagation in Multi-Step Agentic AI Workflows for Research Automation
+- **Rule:** Every significant AI interaction is audited against primary sources or execution outputs. AI suggestions are never treated as verified authority without manual inspection.
 
 ---
 
-## Log Entry 1: Workspace Setup (Prompt 01 Execution)
-- **Task:** Initialize project workspace, formalize evidence tagging rules, and establish scope tracking.
+### Log Entry 1: Workspace Setup & Scope Formalization (Prompt 01 Execution)
+- **Date:** 2026-10-22
+- **Task:** Initialize project workspace, formalize evidence tagging rules (`[VERIFIED]`, `[INFERRED]`, `[UNKNOWN]`), and establish scope tracking in `research_decisions.md`.
 - **AI Tool Used:** Gemini (Interactive Chat).
-- **My Prompt Input:**
-  > *"I am a postgraduate student converting my completed literature review into an implementation-based research paper. My topic is Error Propagation in Multi-Step Agentic AI Workflows for Research Automation. Act as a critical research mentor and technical pair programmer. Guide me in stages... Mark statements as VERIFIED, INFERRED or UNKNOWN... Help me create a portable research_decisions.md log... Start by asking me to attach my existing review and summarize its scope without assuming unseen content."*
-- **AI Output Review & Manual Corrections:**
-  - *AI Output:* Provided a broad summary of agent architectures and suggested generic software bug-tracking frameworks.
-  - *My Manual Verification & Correction:* Corrected the AI's focus to strictly reflect the mathematical formulation ($\gamma_{j\to i}$, $PC(x)$) and paper evaluation frameworks (ReAct, AgentDebug, OpenScholar) explicitly established in my review paper. Rejected generic software engineering additions and locked scope strictly to agent trajectory reliability.
+- **Prompt Summary:** Requested a critical research mentor setup to convert the completed literature review into an implementation study while enforcing strict evidence labels and preventing fabricated citations or results.
+- **AI Proposal:** Provided a broad summary of agent architectures and suggested generic software bug-tracking frameworks.
+- **Human Verification & Manual Correction:** Corrected the AI's focus to strictly reflect the probabilistic formulation ($r_i, \gamma_{j \to i}, PC(x), s_i, \rho_i$) and target frameworks (ReAct, Reflexion, AgentDebug, AgentPro, OpenScholar) established in my review paper. Rejected generic software engineering additions and locked the scope to agent trajectory reliability (`DEC-01`).
 
 ---
 
-## Log Entry 2: Gap Identification & Ranking (Prompt 02 Execution)
-- **Task:** Extract testable research gaps from my review paper and establish feasibility rankings.
+### Log Entry 2: Gap Identification & Feasibility Ranking (Prompt 02 Execution)
+- **Date:** 2026-10-22
+- **Task:** Extract five computationally testable research gaps from the literature review and rank the top three by scientific significance and single-GPU feasibility.
 - **AI Tool Used:** Gemini (Interactive Chat).
-- **My Prompt Input:**
-  > *"Analyze my attached literature review. Identify central methods, datasets, measured findings, author-reported limitations and unresolved questions. Propose five computationally testable research gaps. For each, cite the specific passage or reference in my review; clearly distinguish a limitation reported in the original paper from your own inference; state the experimental question it suggests and what evidence would test it... Rank three gaps by research significance, available resources and implementation feasibility."*
-- **AI Output Review & Manual Corrections:**
-  - *AI Output:* Proposed 5 gaps, but initially misclassified my own inferred analytical points as "reported facts from external authors." It also suggested complex fine-tuning experiments that exceeded single-GPU feasibility.
-  - *My Manual Verification & Correction:* Manually audited all 5 gaps against my PDF text (`L.REVIEW PAPER .pdf`). Corrected the classification tags to properly distinguish explicit author-reported gaps (Sections 7.1, 7.6, 8.3) from inferred research gaps (Sections 8.4, 8.6). Re-ranked the gaps based on actual computing setup (Google Colab / local GPU) to ensure experiments are realistic for an M.Tech project.
+- **Prompt Summary:** Instructed the AI to extract central methods, measured findings, and limitations from `REVIEWPAPER.pdf`, distinguish author-reported limitations from inferred gaps, and rank three gaps by implementation feasibility.
+- **AI Proposal:** Proposed five candidate gaps (`GAP-1` through `GAP-5`), but initially misclassified my own inferred analytical points as reported external author facts and suggested resource-heavy fine-tuning experiments unsuitable for a single GPU.
+- **Human Verification & Manual Correction:** Audited all five gaps line-by-line against my review PDF. Re-tagged `GAP-1`, `GAP-2`, and `GAP-4` as `[VERIFIED]` (explicitly reported in Sections 7.1, 7.6, and 8.3) and `GAP-3` and `GAP-5` as `[INFERRED]` (extrapolated from Sections 8.4 and 8.6). Re-ranked `GAP-1`, `GAP-3`, and `GAP-5` based on local/Colab single-GPU constraints without fine-tuning.
 
 ---
 
-## Log Entry 3: Literature-to-Experiment Mapping (Prompt 03 Execution)
-- **Task:** Map literature gaps to an executable experiment blueprint and select study pathway.
-- **AI Tool Used:** Gemini (Interactive Chat).
-- **My Prompt Input:**
-  > *"My literature review identified candidate gaps GAP-1, GAP-3, GAP-5. Identify three published methods from my review that could realistically be implemented or reproduced. Map original papers to algorithm, dataset, code, metrics, and limitations. Compare three experimental studies (A, B, C) and recommend a minimum viable research experiment for 48-hour local GPU execution."*
-- **AI Output Review & Manual Corrections:**
-  - *AI Output:* Suggested attempting full OpenScholar datastore retrieval (45M papers) and running multi-agent consensus voting over a 1-week timeline.
-  - *My Manual Verification & Correction:* Recognized that hosting a 45M paper embedding datastore exceeds local GPU storage. Sized the execution window to 48 hours (Oct 28–30). Identified that state rollback (GAP-3) on a linear path graph acts as simple truncation, requiring fan-out reuse graphs to demonstrate non-trivial recovery. Pinned ReAct trajectory logging via NetworkX as the primary substrate.
+### Log Entry 3: Literature-to-Experiment Mapping & Pathway Selection (Prompt 03 Execution)
+- **Task:** Map review architectures (ReAct, Reflexion, AgentDebug) to a minimum viable experiment, select datasets, and compare Study Pathways A, B, and C.
+- **AI Tool Used:** LLM Assistant (Prompt 03 execution).
+- **AI Proposal:**
+  - Recommended **Study Pathway B** (controlled Stage-2 error injection on a 4-stage pipeline: `Query Decomposition -> Evidence Retrieval -> Fact Extraction -> Final Synthesis`) using **Qwen2.5-7B-Instruct (4-bit)**, **HotpotQA distractor ($n=100$)** as the primary controlled testbed, and **ScholarQABench** for research-domain validation.
+  - Flagged two bibliographic year errors in my prior notes: **AgentDebug / AgentErrorBench** (Zhu et al.) is a September 2025 arXiv preprint, and **AgentPro** (Deng et al.) is an EMNLP 2025 paper (not 2024).
+  - Recommended deferring **GAP-5** ($PC(x)$ verification gating) until propagation behavior is empirically measured under **GAP-1**.
+- **Human Verification & Manual Correction:**
+  - Accepted Study Pathway B, the 4-stage pipeline, and the bibliographic corrections (`DEC-06`).
+  - Added a **`Injected + Plain Retry`** control condition alongside **`Injected + Reflexion`** (`DEC-04`) so recovery rate ($\rho$) gains from verbal reflection are separated from simple second-attempt re-sampling.
+  - Restricted HotpotQA claims strictly to controlled multi-hop evidence reasoning while retaining a 25-example `ScholarQABench` validation slice to preserve domain relevance to scientific research automation (`DEC-03`).
+  - Marked repository code execution and dataset split inspection as pending manual verification before running Prompt 04.
 
----
-
-## Verification Checklist
-- [x] Topic and author metadata accurately reflect my paper (*Error Propagation in Multi-Step Agentic AI Workflows for Research Automation*).
-- [x] Scope summary and decision log (`research_decisions.md`) are established with explicit `[VERIFIED]`, `[INFERRED]`, and `[UNKNOWN]` tags.
-- [x] Gap matrix contains 5 testable research gaps backed by exact citations to my review paper.
-- [x] Top 3 gaps are ranked with concrete feasibility analysis (compute, datasets, fallback plans).
-- [x] Human-AI audit log documents my personal verification, critical edits, and corrections to AI outputs.
