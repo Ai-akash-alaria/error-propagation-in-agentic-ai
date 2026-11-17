@@ -1,0 +1,16 @@
+{
+  "n": 11,
+  "injection_effect_error_probability": -0.09090909090909094,
+  "recovery_plain_given_injected_wrong": 0.0,
+  "recovery_reflexion_given_injected_wrong": 0.25,
+  "injection_vs_clean_paired_difference": 0.09090909090909091,
+  "injection_vs_clean_bootstrap_95pct": [
+    0.0,
+    0.2727272727272727
+  ],
+  "reflection_vs_retry_paired_difference": 0.09090909090909091,
+  "reflection_vs_retry_bootstrap_95pct": [
+    0.0,
+    0.2727272727272727
+  ]
+}

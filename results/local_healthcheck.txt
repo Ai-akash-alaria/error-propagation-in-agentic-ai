@@ -1,0 +1,9 @@
+Python: 3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]
+System: Linux-6.18.57-x86_64-with-glibc2.41
+torch 2.10.0+cpu
+transformers NOT INSTALLED
+datasets NOT INSTALLED
+accelerate NOT INSTALLED
+bitsandbytes NOT INSTALLED
+pytest 9.0.2
+CUDA available: False MPS available: False

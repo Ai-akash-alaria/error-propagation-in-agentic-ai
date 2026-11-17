@@ -1,0 +1,9 @@
+{
+  "status":"PROPOSED_NOT_PREREGISTERED", "seed":42, "dataset":"HotpotQA distractor validation", "sample_size":100,
+  "domain_validation":"ScholarQABench 25 examples pending compatible evidence and gold-answer access",
+  "model":"Qwen/Qwen2.5-7B-Instruct", "quantization":"4-bit NF4 CUDA only", "temperature":0,
+  "conditions":["clean","injected","plain_retry","reflexion_style"],
+  "injection":"append adversarial unverified answer annotation to one random retrieved document; preserve source evidence",
+  "primary_metric":"exact_match", "secondary_metrics":["marker_in_extraction","marker_in_answer","recovery_given_injected_error","latency_seconds"],
+  "limitations":["The injection is an added annotation, not a replacement of source evidence.","Reflexion-style comparison is not a faithful reproduction of the original method.","Clean condition is an upper-bound control, not a recovery comparator.","Potential confounding from fixed sequence and different prompt lengths."]
+}

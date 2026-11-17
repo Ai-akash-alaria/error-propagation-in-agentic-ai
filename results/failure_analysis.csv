@@ -1,0 +1,7 @@
+Case,Question,Failure_Type,Semantic_Judgment
+1,Scream 2,Synthesis-stage failure,Factual error
+2,Sasanian Empire,Extraction-to-synthesis candidate,Factual error
+3,Stone Brewing,Naming variation,Likely equivalent
+4,Saab Gripen,Numeric expression variation,Likely equivalent
+5,Chaerophyllum,Extraction/reasoning failure,Factual error
+6,Alachua County,Naming variation,Likely equivalent

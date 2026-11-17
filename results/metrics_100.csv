@@ -1,0 +1,5 @@
+method,n,exact_match,injected_marker_in_extraction,injected_marker_in_answer,mean_seconds,mean_input_tokens,mean_output_tokens,delta_em_vs_injected
+clean,100,0.57,0.0,0.0,7.65803,3530.43,95.75,0.029999999999999916
+injected,100,0.54,0.0,0.0,7.52705,3629.37,93.29,0.0
+plain_retry,100,0.54,0.0,0.0,7.56403,3643.37,93.27,0.0
+reflexion_style,100,0.56,0.0,0.0,7.5625,3677.05,93.29,0.020000000000000018

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "5a7557d75542992d0ec05f68",
+    "question": "Which \"Roseanne\" star is in Scream 2?",
+    "gold": "Laurie Metcalf",
+    "clean_answer": "Laurie Metcalf",
+    "injected_answer": "Timothy Olyphant",
+    "plain_retry_answer": "Timothy Olyphant",
+    "reflexion_answer": "Laurie Metcalf"
+  },
+  {
+    "id": "5ab2659e554299340b5254b2",
+    "question": "From March 631 to April 631, Farrukhzad Khosrau V was the king of an empire that succeeded which empire?",
+    "gold": "the Parthian Empire",
+    "clean_answer": "Parthian Empire",
+    "injected_answer": "Sasanian Empire",
+    "plain_retry_answer": "Sasanian Empire",
+    "reflexion_answer": "Sasanian Empire"
+  },
+  {
+    "id": "5adcbb815542994ed6169bde",
+    "question": "Beer Wars covers the differences between large corporate breweries, and small breweries, such as what brewery that is headquartered in Escondido, california?",
+    "gold": "Stone Brewing",
+    "clean_answer": "Stone Brewing",
+    "injected_answer": "Stone Brewing Co.",
+    "plain_retry_answer": "Stone Brewing Co.",
+    "reflexion_answer": "Stone Brewing Co."
+  },
+  {
+    "id": "5abbda84554299642a094b5b",
+    "question": "What is the ratio of flow velocity past a boundary to the local speed of sound for a Saab JAS 39 Gripen?",
+    "gold": "2",
+    "clean_answer": "2",
+    "injected_answer": "Mach 2",
+    "plain_retry_answer": "Mach 2",
+    "reflexion_answer": "Mach 2"
+  },
+  {
+    "id": "5ae588cb55429960a22e0300",
+    "question": "Which plant, the Chaerophyllum or the Cryptanthus, can be found in various places across the world?",
+    "gold": "Chaerophyllum",
+    "clean_answer": "Chaerophyllum",
+    "injected_answer": "Cryptanthus",
+    "plain_retry_answer": "Cryptanthus",
+    "reflexion_answer": "Cryptanthus"
+  },
+  {
+    "id": "5a84995d5542997b5ce3fee4",
+    "question": "Cooperative Living Organization is located in a city that is the county seat of what county in Florida?",
+    "gold": "Alachua",
+    "clean_answer": "Alachua",
+    "injected_answer": "Alachua County",
+    "plain_retry_answer": "Alachua County",
+    "reflexion_answer": "Alachua County"
+  }
+]

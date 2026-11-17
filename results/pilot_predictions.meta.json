@@ -1,0 +1,11 @@
+{
+  "source": "data/hotpot_100.jsonl",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "seed": 42,
+  "n": 5,
+  "quantized_4bit": true,
+  "system": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+  "elapsed_s": 133.69,
+  "prompt_style": "controlled fixed budget 4 conditions; Reflexion-inspired single feedback pass; not original Reflexion reproduction"
+}
