@@ -1,5 +1,64 @@
 # Error Propagation in Multi-Step Agentic AI Workflows for Research Automation
 
+<!-- BEGIN AITR EXPERIMENTAL STUDY -->
+## Experimental Study: HotpotQA Evidence-Context Contamination (n=100)
+
+This section documents the implementation-based follow-up to the literature review below. It investigates whether inserting an unverified, instruction-like annotation into a fixed evidence context changes downstream fact extraction and short-answer synthesis. The study follows **Pathway B (controlled comparative study)** in the AI Tools for Research assignment.
+
+### Research question and workflow
+
+**Question:** Under a fixed model and 100 matched HotpotQA distractor questions, how do clean evidence, injected evidence, a plain-retry prompt, and a Reflexion-*style* feedback prompt compare in exact-match answers and recovery?
+
+Conceptual stages: **query decomposition → fixed dataset evidence (clean/corrupted) → fact extraction → final synthesis**. The project uses the gold HotpotQA contexts, **not a live web/paper retriever**. `src/study.py` inserts one unverified false-answer annotation into a randomly selected document; the original passages are retained. Its synthetic marker is visible in all 100 injected prompts, but none of the output extraction or answer texts copied the marker verbatim. Marker non-copying does not establish that no misinformation was used.
+
+The model-run configuration was **Qwen2.5-7B-Instruct** using the script's 4-bit CUDA loading path and greedy decoding (`do_sample=False`), with a deterministic 100-item validation sample (dataset sampling seed 42). The implementation is **not** an exact reproduction of ReAct or the original Reflexion algorithm.
+
+### Measured results (100 matched questions)
+
+| Condition | Exact-match correct | Exact-match accuracy |
+|---|---:|---:|
+| Clean | 57/100 | **57%** |
+| Injected | 54/100 | **54%** |
+| Plain retry | 54/100 | **54%** |
+| Reflexion-style feedback | 56/100 | **56%** |
+
+Paired string-based analysis: **6** clean-correct → injected-wrong changes, and **3** clean-wrong → injected-correct changes. Of the six adverse exact-match flips, **0/6** were recovered by plain retry and **1/6** by Reflexion-style feedback. The broader all-injected-wrong denominator yields **0/46** and **2/46**, respectively; these denominators address different questions and must not be interchanged.
+
+The six adverse flips were inspected: three appear to be substantive answer errors, while three appear to be **semantic-equivalence / formatting mismatches** (for example, `2` vs `Mach 2`). These judgments are preliminary and do **not** replace the benchmark's recorded string exact match. The paired bootstrap interval reported for injected minus clean exact match spans **−9 to +3 percentage points**; these results do not demonstrate a statistically reliable accuracy decline.
+
+**Interpretation:** This is an exploratory study of changes under *evidence-context contamination*. It does **not** establish that injected content caused each error, nor does marker-copy frequency estimate the proposed conditional error-propagation coefficient. A stronger causal test requires targeted factual corruption and independently evaluated intermediate-stage errors.
+
+### Reproduce the experiment
+
+From the repository root, using a suitable CUDA GPU environment with access to model weights and the dataset:
+
+```bash
+python -m pip install -r requirements.txt
+python -m pytest -q
+python scripts/prepare_hotpot.py --n 100 --seed 42 --out data/hotpot_100.jsonl
+python scripts/run_experiment.py --data data/hotpot_100.jsonl --out results/hotpot_predictions_100.jsonl
+python scripts/evaluate.py --predictions results/hotpot_predictions_100.jsonl --out results/metrics_100.csv
+python scripts/plot_results.py --csv results/metrics_100.csv --out results/final_accuracy.png
+```
+
+The inference script overwrites the output path: **use a new filename if preserving prior predictions**. The actual runs were performed in Google Colab; runtime packages, model/dataset revisions, and GPU diagnostics should be recorded for strict reproducibility. Free GPU availability is not guaranteed.
+
+### Repository navigation and evidence
+
+- [`src/study.py`](src/study.py) — pipeline, evidence injection, four conditions, extraction and answer traces.
+- [`scripts/`](scripts/) — dataset preparation, inference, evaluation, and plotting.
+- [`tests/`](tests/) — deterministic checks (not evidence of model accuracy).
+- [`configs/`](configs/) — experiment configuration.
+- [`results/`](results/) — logged predictions, paired comparison, failure-case audit, tables and plots.
+- [`paper/`](paper/) — follow-up paper and LaTeX sources.
+- [`research_decisions.md`](research_decisions.md), [`baseline_validation.md`](baseline_validation.md), [`ai_assistance_log.md`](ai_assistance_log.md) — provenance, validation and AI-use documentation.
+
+### Limitations and pending verification
+
+Gold-answer exact match is sensitive to semantically equivalent strings. The experiment uses short-answer HotpotQA rather than scientific-paper synthesis; the proposed ScholarQABench extension has **not** been executed. The recovery prompts add a fresh model run rather than performing full independent fact-checking or reproducing published Reflexion. Verify dataset/model versions, source citations, license obligations, and any publication claims before formal submission. The literature-review resources and historical context are preserved in the original sections below.
+
+<!-- END AITR EXPERIMENTAL STUDY -->
+
 A curated collection of research papers, benchmark datasets, process supervision tools, and open-source implementations focused on cascading failure mitigation, trajectory debugging, and reliability engineering in agentic AI research automation.
 
 ---
