@@ -39,3 +39,23 @@
   - Restricted HotpotQA claims strictly to controlled multi-hop evidence reasoning while retaining a 25-example `ScholarQABench` validation slice to preserve domain relevance to scientific research automation (`DEC-03`).
   - Marked repository code execution and dataset split inspection as pending manual verification before running Prompt 04.
 
+---
+
+## Subsequent AI-assisted debugging and analysis (continuation of existing log)
+
+This log records assistance **reported in the chat and supported by user-shared outputs**, rather than claiming autonomous access to the user's Colab/GitHub account. Original log dates and earlier statements are preserved as historical notes.
+
+| Task / AI suggestion | Human observation or decision | Verification / outcome |
+|---|---|---|
+| Shell path quoting on Google Drive | User supplied `/content/drive/MyDrive/... (1)/...` Bash syntax error | Path quoted; Colab directory changed with `%cd` |
+| Module imports / environment | `requirements.txt` not found and `src` import initially failed | Correct project root and `PYTHONPATH`; subsequent tests run, with five tests documented in archived `test_log.txt` |
+| Dataset record count | `hotpot_100.jsonl` had only 5 lines after pilot generation | Human reran `prepare_hotpot.py --n 100 --seed 42` and asserted 100 rows |
+| End-to-end inference | User ran Colab 100-ID inference and uploaded outputs | Actual 100-record JSONL and metadata (`elapsed_s=3031.25`) inspected; no invented GPU model |
+| Paired metrics and uncertainty | AI suggested analysis; human supplied output | 57/54/54/56 EM; six adverse flips, three reverse, recovery 0/6 vs 1/6; bootstrap in evaluation summary |
+| Injection integrity | AI noted marker non-reproduction did not prove no corruption | Human reconstructed dirty contexts; 100/100 marker visibility, 0/100 copying in extraction/answer |
+| Failure-case analysis | AI proposed six-case audit and noted semantic mismatch risks | User displayed original and modified extractions/answers; three potentially equivalent strings flagged, no full semantic regrading |
+| Research paper and GitHub repository | AI drafted manuscript, README and review documents | Student uploaded code, results, PDF and README and showed repository screenshots; publication claims and references still require primary-source review |
+
+**At least three observed AI/software limitations:** (1) earlier instructions ran from the wrong working directory, (2) the five-item pilot overwrote a misleadingly named `hotpot_100.jsonl` file, (3) naive exact-match scoring misclassified potentially equivalent answers, and (4) initial research documents incorrectly retained pre-run status after GPU execution. These were identified through actual user console output or files, not imagined incidents.
+
+**Human ownership:** Student is responsible for understanding `src/study.py`, confirming source citations, describing experimental decisions, verifying results, and accurately disclosing AI assistance under institute policies. The GitHub commit history and Colab notebook are additional first-party evidence not independently fetched during this documentation patch.

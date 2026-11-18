@@ -1,1 +1,2 @@
 
+matplotlib>=3.7,<4  # declared plotting dependency; exact run version not captured

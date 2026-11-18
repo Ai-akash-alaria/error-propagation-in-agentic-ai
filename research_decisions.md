@@ -53,3 +53,47 @@ Every claim, citation, dataset specification, and experimental metric in this re
 | **GAP-4** | **Correlated Errors in Multi-Agent Ensembles** | Review Sec. 7.1: *"Multiple agents may share the same base model, retrieval corpus, prompt templates, or hidden biases. Consequently, majority voting among agents does not necessarily produce independent evidence."* | `[VERIFIED]` (Reported in Review) | To what degree does consensus voting among homogeneous agent ensembles fail to detect systematic evidence extraction errors compared to heterogeneous LLM ensembles? | Error detection accuracy across homogeneous vs. heterogeneous LLM ensembles under identical noisy inputs. |
 | **GAP-5** *(Rank 3 — Future)* | **Risk-Adaptive Verification Efficiency** | Review Sec. 8.4: *"High-impact claims—for example, the numerical result driving a meta-analysis or the premise underlying an experimental recommendation—should receive stronger checks than low-impact formatting operations."* | `[INFERRED]` (Extrapolated from Cost Constraints) | Can a verification policy weighted by artifact propagation centrality $PC(x)$ maintain task correctness while reducing overall verification API token overhead? | End-to-end task accuracy, latency metrics, API token counts, and detected error ratios. |
 
+---
+
+## Experimental decision outcomes and audit addendum
+
+*The existing DEC-01–DEC-06 entries and original dates remain historical planning records. This section distinguishes the executed study from the earlier plan. Evidence labels refer to the listed artifacts, not to independent replication.*
+
+| ID | Decision / outcome | Evidence and classification | Boundary / follow-up |
+|---|---|---|---|
+| DEC-07 | Use fixed HotpotQA distractor/validation contexts for a 100-ID matched controlled comparison | **[VERIFIED: run log]** `results/hotpot_predictions_100.jsonl`; `results/hotpot_predictions_100.meta.json` (`n=100`, seed 42); `scripts/prepare_hotpot.py` | Not live retrieval; HotpotQA is a short-answer proxy, not scholarly literature synthesis |
+| DEC-08 | Use Qwen2.5-7B-Instruct, Transformers and bitsandbytes 4-bit **NF4** quantization | **[VERIFIED: implementation and run metadata]** `src/study.py`, `.meta.json` | Earlier DEC-04's `Q4_K_M` and “Clean ReAct” wording describes a plan, **not executed code**. Actual decoding: `do_sample=False`, not an explicit `temperature=0` argument. GPU/device and package revisions not archived |
+| DEC-09 | Implemented controls: `clean`, `injected`, `plain_retry`, `reflexion_style` | **[VERIFIED: source and predictions]** `src/study.py`; 100 aligned IDs | Neither ReAct nor published Reflexion is reproduced. Reflexion-style is a single feedback-bearing rerun; no long-term memory. Plain retry and feedback prompts are not information-matched |
+| DEC-10 | Add a conspicuous false-answer annotation to one seeded randomly selected context document, preserving source sentences | **[VERIFIED: source]** `corrupt()`; **[VERIFIED: student-reported audit]** synthetic marker visible within first 14,000 characters for all 100 | Literal marker in extraction/answer = 0/100; zero copying does not exclude semantic contamination |
+| DEC-11 | Report actual benchmark and paired differences | **[VERIFIED: supplied outputs]** `results/metrics_100.csv`: clean 57/100, injected 54/100, plain retry 54/100, Reflexion-style 56/100 | Paired injection−clean difference −0.03; recorded bootstrap 95% interval [−0.09, +0.03] includes zero. No significant degradation claim |
+| DEC-12 | Report two distinct recovery denominators | **[VERIFIED: item-level results]** among all 46 injected-incorrect examples, retry 0/46, Reflexion-style 2/46; among six clean-correct→injected-wrong, 0/6 and 1/6 | Only exact-match outcome recovery. Not validated semantic/factual recovery |
+| DEC-13 | Perform six-case qualitative audit | **[VERIFIED: output inspection]** `results/failure_cases.json`, `failure_analysis.csv`; **[INFERRED]** three substantive factual changes, three likely semantic-equivalence/format mismatches | These judgments are not blinded or comprehensive. “Stone Brewing” vs “Stone Brewing Co.”, “2” vs “Mach 2”, “Alachua” vs “Alachua County” must not silently alter EM |
+| DEC-14 | Narrow research claims to evidence-context sensitivity, not a causal propagation coefficient | **[VERIFIED: missing independent extraction-error labels]** `src/study.py`, trace structure and manuscript limitations | Proposed γ₂→₃/γ₂→₄, supporting fact F1 and ScholarQABench n=25 **NOT EXECUTED / NOT ESTIMATED**. Do not claim success on these planned metrics |
+| DEC-15 | Preserve frozen-protocol history honestly | **[VERIFIED: current config]** `configs/frozen_protocol.json` says `PROPOSED_NOT_PREREGISTERED` | Do not retrospectively claim preregistration; identify the full-run protocol and any post-hoc audit separately |
+| DEC-16 | Update provenance documentation and scientific checking | **[VERIFIED: repository artifacts and uploaded measurements]** paper, scripts, data source, tests | External source metadata and model/dataset revision hashes pending; original records retain original dates |
+
+### Original-plan discrepancies that must be carried into the viva
+
+- Planned `Q4_K_M` was **not** executed; code uses bitsandbytes `nf4` with CUDA.
+- Planned “Clean ReAct / Injected ReAct” are **not** original ReAct agents. Stage 2 serializes pre-supplied HotpotQA evidence; there is no real retrieval tool/action loop.
+- Planned full “Reflexion” was **not** executed; code applies a single reflection-style warning and previous answer in a final-answer prompt.
+- Planned gamma coefficients, extraction correctness labels, supporting-fact F1 and 25 ScholarQABench examples are **not complete**.
+- A 100-example data validation sample was used for evaluation, but no evidence of a separate non-overlapping development split for prompt design is archived. Potential leakage/selection concerns remain **[UNKNOWN]**.
+
+### Prompt-to-artifact crosswalk
+
+| Assignment prompt | Prepared/verified artifact |
+|---|---|
+| 01–02 | Existing Phase-I work and decision log; this addendum corrects executed status |
+| 03 | `docs/literature_to_experiment_map.md` |
+| 04 | `docs/feasibility_novelty_audit.md` |
+| 05 | `docs/research_brief.md` |
+| 06–07 | `data/datasets.md` or `data/README.md`, `configs/frozen_protocol.json`, `docs/research_brief.md`; not preregistered |
+| 08–11 | Code, test log, `baseline_validation.md`, `docs/experiment_run_manifest.md`, `docs/ai_use_audit.md` |
+| 12–14 | `docs/results_interpretation.md`, metrics and paired logs; selected Pathway B |
+| 15 | `paper/main.tex`, `paper/main.pdf`, `paper/references.bib`; bibliographic cross-check outstanding |
+| 16 | `docs/technical_peer_review.md` |
+| 17 | README, scripts, results, requirements; exact versions pending |
+| 18 | `ai_assistance_log.md`, `docs/ai_use_audit.md` |
+
+**Remaining independent human tasks:** verify primary-source publication metadata; recover package versions/revision hashes or explicitly mark irrecoverable; cross-check a sample of predictions against primary dataset evidence; confirm final bibliography and README match the GitHub contents.
