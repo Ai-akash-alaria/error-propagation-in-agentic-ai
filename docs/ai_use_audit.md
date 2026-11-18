@@ -13,7 +13,7 @@
 | Failure analysis | Analyze six adverse EM flips | User displayed extraction/answer traces; three candidate aliases detected | Provisional human/AI semantic judgments; no blinded exhaustive audit |
 | Manuscript and GitHub documentation | Paper draft, README, logs, peer review | Uploaded PDF and GitHub screenshots show real files | Scientific integrity requires clear AI attribution and bibliographic checks |
 
-## Three documented AI-assisted correction examples
+## Four documented AI-assisted correction examples
 
 1. **Working-directory bug:** early commands assumed the repository root, causing `requirements.txt` missing and `src` import errors. Correcting the directory/import path fixed workflow setup.
 2. **Five-example file disguised as a 100-example file:** filename was not reliable. A human line-count check caught the problem; dataset generation was rerun, then 100-row assert passed.
