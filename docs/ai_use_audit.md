@@ -25,3 +25,5 @@
 Human: select research question, run and inspect actual Colab outputs, retain raw logs, understand all code modules, approve final repository changes, verify citations and ethically disclose tool involvement. AI: proposed code, experiment controls, debugging approaches, results summaries, and manuscript wording. AI assistance does not constitute primary scientific source verification and does not warrant inventing missing logs.
 
 **Unverified:** exact historical prompt versions and Git diffs beyond user-visible outputs, GPU type, all package revisions, blind scoring, independent reproduction. They remain explicitly missing, not assumed.
+
+Unchecked items are acknowledged limitations or future research requirements; they have not been experimentally completed in this submission.
